@@ -1,29 +1,21 @@
 package com.github.m0levich.pages;
 
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+
+import static com.codeborne.selenide.Selenide.$;
 
 public class TwoFactorAuthPage {
-    private final WebDriver webDriver;
 
-    @FindBy(id = "otp-code")
-    private WebElement twoFactorsCodeFill;
+    private SelenideElement twoFactorsCodeFill = $(By.id("otp-code"));
 
-    @FindBy(id = "login-otp-button")
-    private WebElement enterButton;
+    private SelenideElement enterButton = $(By.id("login-otp-button"));
 
-    public TwoFactorAuthPage(WebDriver webDriver) {
-        this.webDriver = webDriver;
-        PageFactory.initElements(webDriver,this);
-    }
 
     public MainPage twoFactorsAuth(String code){
         twoFactorsCodeFill.clear();
         twoFactorsCodeFill.sendKeys(code);
         enterButton.click();
-        return new MainPage(webDriver);
+        return new MainPage();
     }
 }

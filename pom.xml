@@ -17,9 +17,20 @@
     <selenium-java.version>3.141.59</selenium-java.version>
     <assertj-core.version>3.15.0</assertj-core.version>
     <slf4j-log4j12.version>1.7.30</slf4j-log4j12.version>
+    <selenide.version>5.10.0</selenide.version>
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>${selenium-java.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.codeborne</groupId>
+      <artifactId>selenide</artifactId>
+      <version>${selenide.version}</version>
+    </dependency>
     <dependency>
       <groupId>io.github.bonigarcia</groupId>
       <artifactId>webdrivermanager</artifactId>
@@ -30,11 +41,6 @@
       <artifactId>testng</artifactId>
       <version>${testng.version}</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.seleniumhq.selenium</groupId>
-      <artifactId>selenium-java</artifactId>
-      <version>${selenium-java.version}</version>
     </dependency>
     <dependency>
       <groupId>org.assertj</groupId>

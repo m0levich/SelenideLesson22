@@ -1,6 +1,8 @@
 package com.github.m0levich.pages;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -16,6 +18,8 @@ public class LoginPage {
 
     private SelenideElement returnLanguage = $(By.xpath("//a[@class='chevron locale inline-block']"));
 
+    @Step("Авторизация")
+    @Description("Ввод логина и пароля")
     public TwoFactorAuthPage login(String userName, String userPassword) {
         userNameField.clear();
         userNameField.sendKeys(userName);
@@ -25,6 +29,8 @@ public class LoginPage {
         return new TwoFactorAuthPage();
     }
 
+    @Step("Выбор русского языка")
+    @Description("Проверка на выбранный язык на странице")
     public void checkLanguage(){
         if(title().contains("Bank Saint-Petersburg")){
             returnLanguage.click();

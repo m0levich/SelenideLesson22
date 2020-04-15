@@ -19,6 +19,8 @@
     <slf4j-log4j12.version>1.7.30</slf4j-log4j12.version>
     <selenide.version>5.10.0</selenide.version>
     <aspectj.version>1.8.10</aspectj.version>
+    <cucumber-testng.version>5.6.0</cucumber-testng.version>
+    <allure.version>2.13.2</allure.version>
   </properties>
 
   <dependencies>
@@ -44,6 +46,16 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-java</artifactId>
+      <version>5.6.0</version>
+    </dependency>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-testng</artifactId>
+      <version>${cucumber-testng.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
       <version>${assertj-core.version}</version>
@@ -56,12 +68,17 @@
     <dependency>
       <groupId>io.qameta.allure</groupId>
       <artifactId>allure-testng</artifactId>
-      <version>2.13.2</version>
+      <version>${allure.version}</version>
     </dependency>
     <dependency>
       <groupId>io.qameta.allure</groupId>
       <artifactId>allure-selenide</artifactId>
-      <version>2.13.2</version>
+      <version>${allure.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-cucumber5-jvm</artifactId>
+      <version>${allure.version}</version>
     </dependency>
   </dependencies>
 
@@ -74,6 +91,7 @@
         <configuration>
           <argLine>
             -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+            -Dcucumber.options="--plugin io.qameta.allure.cucumber5jvm.AllureCucumber5Jvm"
           </argLine>
         </configuration>
         <dependencies>

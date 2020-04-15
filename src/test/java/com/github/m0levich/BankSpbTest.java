@@ -76,7 +76,7 @@ public class BankSpbTest {
         overviewPage.getFinancialFreedom().getMyAssets().shouldBe(visible);
     }
 
-    @Step("Проверка на матчер суммы в блоке финансовая свобода")
+    @Step("Проверка на матчер суммы в блоке Финансовая свобода")
     private void checkFinancialFreedomOnMatcher(SelenideElement financialFreedomBlock, String matcher) {
         financialFreedomBlock.should(matchText(matcher));
     }

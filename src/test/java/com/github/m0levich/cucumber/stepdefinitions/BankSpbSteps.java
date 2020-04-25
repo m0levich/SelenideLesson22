@@ -40,8 +40,7 @@ public class BankSpbSteps {
         try {
             loginPage.login(readingFromFile.getLogin(), readingFromFile.getPassword());
         } catch (FileNotFoundException e) {
-            LOG.info("Файл не найден в корне проекта");
-            e.printStackTrace();
+            LOG.info("Файл не найден в корне проекта", e);
         }
     }
 
@@ -51,8 +50,7 @@ public class BankSpbSteps {
         try {
             twoFactorAuthPage.twoFactorsAuth(readingFromFile.getSmsPin());
         } catch (FileNotFoundException e) {
-            LOG.info("Файл c кодом не найден в корне проекта");
-            e.printStackTrace();
+            LOG.info("Файл c кодом не найден в корне проекта", e);
         }
     }
 

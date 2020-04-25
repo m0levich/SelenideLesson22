@@ -24,7 +24,7 @@ public class BankSpbTest {
     private static final Logger LOG = LoggerFactory.getLogger(BankSpbTest.class);
 
     @BeforeMethod(description = "Переход на страницу интернет-банка")
-    public void initDriver () {
+    public void initDriver() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(false));
         open("https://idemo.bspb.ru");
     }
@@ -36,7 +36,7 @@ public class BankSpbTest {
     @Issue("issue-21")
     @Test(description = "Тест на проверку отображения блока Финансовая свобода")
     @Severity(SeverityLevel.CRITICAL)
-    public void myAssetsTest(){
+    public void myAssetsTest() {
 
         LoginPage loginPage = new LoginPage();
         ReadingFromFile readingFromFile = new ReadingFromFile();
@@ -49,8 +49,7 @@ public class BankSpbTest {
                     .getNavigationMenu()
                     .selectMenu("Обзор");
         } catch (FileNotFoundException e) {
-            LOG.info("Файл не найден в корне проекта");
-            e.printStackTrace();
+            LOG.info("Файл не найден в корне проекта", e);
         }
         OverviewPage overviewPage = new OverviewPage();
         checkFinancialFreedomOnMatcher(overviewPage.getFinancialFreedom().getFinancialFreedomBlock(), overviewPage.getFinancialFreedom().getMatcher());

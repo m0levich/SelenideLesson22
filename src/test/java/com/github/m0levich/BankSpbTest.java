@@ -1,7 +1,6 @@
 package com.github.m0levich;
 
 import com.codeborne.selenide.logevents.SelenideLogger;
-import com.github.m0levich.blocks.FinancialFreedom;
 import com.github.m0levich.pages.LoginPage;
 import com.github.m0levich.pages.OverviewPage;
 import io.qameta.allure.*;
@@ -13,9 +12,12 @@ import org.testng.annotations.Test;
 
 import java.io.FileNotFoundException;
 
+import static com.codeborne.selenide.Condition.matchText;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.title;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static io.qameta.allure.Allure.step;
 
 public class BankSpbTest {
 
@@ -48,11 +50,19 @@ public class BankSpbTest {
             Assert.fail("Файл не найден в корне проекта", e);
         }
         OverviewPage overviewPage = new OverviewPage();
-        FinancialFreedom financialFreedom = new FinancialFreedom();
-        financialFreedom.checkFinancialFreedomOnMatcher(overviewPage.getFinancialFreedom().getFinancialFreedomBlock(), overviewPage.getFinancialFreedom().getMatcher());
-        Actions act = new Actions(getWebDriver());
-        financialFreedom.moveToBlock(overviewPage, act);
-        financialFreedom.checkMyAssetsVisible(overviewPage);
-        financialFreedom.checkMyAssetsOnMather(overviewPage);
+        step("Проверка на матчер суммы в блоке Финансовая свобода", () -> {
+            overviewPage.getFinancialFreedom().getFinancialFreedomBlock().should(matchText(overviewPage.getFinancialFreedom().getMatcher()));
+        });
+        step("Перемещение курсора на блок", () -> {
+            Actions act = new Actions(getWebDriver());
+            act.moveToElement(overviewPage.getFinancialFreedom().getFinancialFreedomBlock()).perform();
+        });
+        step("Проверка на видимость элемента", () -> {
+            overviewPage.getFinancialFreedom().getMyAssets().shouldBe(visible);
+        });
+        step("Проверка на матчер Мои средства", () -> {
+            String myAssetsMatcher = "Моих средств " + overviewPage.getFinancialFreedom().getMatcher();
+            overviewPage.getFinancialFreedom().getMyAssets().should(matchText(myAssetsMatcher));
+        });
     }
 }

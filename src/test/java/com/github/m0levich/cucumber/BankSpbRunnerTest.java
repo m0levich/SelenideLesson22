@@ -9,5 +9,5 @@ import io.cucumber.testng.CucumberOptions;
         snippets = CucumberOptions.SnippetType.CAMELCASE,
         glue = "com.github.m0levich.cucumber.stepdefinitions",
         tags = "@all and @lesson25")
-public class CucumberRunnerTest extends AbstractTestNGCucumberTests {
+public class BankSpbRunnerTest extends AbstractTestNGCucumberTests {
 }

@@ -39,30 +39,30 @@ public class BankSpbTest {
         LoginPage loginPage = new LoginPage();
         ReadingFromFile readingFromFile = new ReadingFromFile();
         loginPage.checkLanguage();
-        title().contains("Интернет банк - Банк Санкт-Петербург");
+        Assert.assertTrue(title().contains("Интернет банк - Банк Санкт-Петербург"), "Title is not contains expected text");
         try {
             loginPage
                     .login(readingFromFile.getLogin(), readingFromFile.getPassword())
                     .twoFactorsAuth(readingFromFile.getSmsPin())
-                    .getNavigationMenu()
+                    .navigationMenu
                     .selectMenu("Обзор");
         } catch (FileNotFoundException e) {
             Assert.fail("Файл не найден в корне проекта", e);
         }
         OverviewPage overviewPage = new OverviewPage();
         step("Проверка на матчер суммы в блоке Финансовая свобода", () -> {
-            overviewPage.getFinancialFreedom().getFinancialFreedomBlock().should(matchText(overviewPage.getFinancialFreedom().getMatcher()));
+            overviewPage.financialFreedom.financialFreedomBlock.should(matchText(overviewPage.financialFreedom.matcher));
         });
         step("Перемещение курсора на блок", () -> {
             Actions act = new Actions(getWebDriver());
-            act.moveToElement(overviewPage.getFinancialFreedom().getFinancialFreedomBlock()).perform();
+            act.moveToElement(overviewPage.financialFreedom.financialFreedomBlock).perform();
         });
-        step("Проверка на видимость элемента", () -> {
-            overviewPage.getFinancialFreedom().getMyAssets().shouldBe(visible);
-        });
+        step("Проверка на видимость элемента", () ->
+            overviewPage.financialFreedom.myAssets.shouldBe(visible)
+        );
         step("Проверка на матчер Мои средства", () -> {
-            String myAssetsMatcher = "Моих средств " + overviewPage.getFinancialFreedom().getMatcher();
-            overviewPage.getFinancialFreedom().getMyAssets().should(matchText(myAssetsMatcher));
+            String myAssetsMatcher = "Моих средств " + overviewPage.financialFreedom.matcher;
+            overviewPage.financialFreedom.myAssets.should(matchText(myAssetsMatcher));
         });
     }
 }

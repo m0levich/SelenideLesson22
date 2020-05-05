@@ -29,7 +29,7 @@ public class BankSpbSteps {
     @Допустим("меняет язык на русский")
     public void languageCheck() {
         loginPage.checkLanguage();
-        title().contains("Интернет банк - Банк Санкт-Петербург");
+        Assert.assertTrue(title().contains("Интернет банк - Банк Санкт-Петербург"), "Title is not contains expected text");
     }
 
     @Допустим("авторизуется")
@@ -54,26 +54,26 @@ public class BankSpbSteps {
     @Допустим("переходит в раздел {string}")
     public void goToMenu(String string) {
         BasePage basePage = new MainPage();
-        basePage.getNavigationMenu().selectMenu(string);
+        basePage.navigationMenu.selectMenu(string);
     }
 
     @Допустим("проверяет блок Финансовая свобода на матчер")
     public void checkBlockFinancialFreedomOnMatcher() {
         OverviewPage overviewPage = new OverviewPage();
-        overviewPage.getFinancialFreedom().getFinancialFreedomBlock().should(matchText(overviewPage.getFinancialFreedom().getMatcher()));
+        overviewPage.financialFreedom.financialFreedomBlock.should(matchText(overviewPage.financialFreedom.matcher));
     }
 
     @Допустим("Наводит курсор на блок")
     public void moveCursorToBlock() {
         Actions act = new Actions(getWebDriver());
-        act.moveToElement(financialFreedom.getFinancialFreedomBlock()).perform();
-        financialFreedom.getMyAssets().shouldBe(visible);
+        act.moveToElement(financialFreedom.financialFreedomBlock).perform();
+        financialFreedom.myAssets.shouldBe(visible);
     }
 
     @Допустим("проверяет на матчер появившийся блок Мои средства")
     public void checkBlockMyAssetsOnMatcher() {
-        String myAssetsMatcher = "Моих средств " + financialFreedom.getMatcher();
-        financialFreedom.getMyAssets().should(matchText(myAssetsMatcher));
+        String myAssetsMatcher = "Моих средств " + financialFreedom.matcher;
+        financialFreedom.myAssets.should(matchText(myAssetsMatcher));
     }
 
 }
